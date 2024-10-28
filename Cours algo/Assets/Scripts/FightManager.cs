@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using Random = System.Random;
+
 
 public class FightManager : MonoBehaviour
 {
@@ -14,31 +14,16 @@ public class FightManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI PlayerGameObject;
     [SerializeField] private PlayerStats otherPlayer;
     [SerializeField] private TextMeshProUGUI otherPlayerGameObject;
-
-    private void Update()
-    {
-        if (!state)
-        {
-            Random rdn = new Random() ;
-            int random = rdn.Next(1, 4);
-            switch (random)
-            {
-                case 1 :
-                    AttackFire();
-                    break;
-                case 2 :
-                    AttackWater();
-                    break;
-                case 3 :
-                    AttackPlant();
-                    break;
-            }
-        }
-    }
+    [SerializeField] private AI player2;
 
     private void Start()
     {
         Tour();
+    }
+
+    private void Update()
+    {
+        
     }
 
     public void changeState()
@@ -65,6 +50,7 @@ public class FightManager : MonoBehaviour
             case false:
                 text1.SetActive(false);
                 text2.SetActive(true);
+                player2.ManageAITurn();
                 break;
         }
     }
@@ -87,6 +73,7 @@ public class FightManager : MonoBehaviour
 
             otherPlayerGameObject.text = otherPlayer.healPoints + " Pv ";
             state = false;
+            Tour();
         }
         else
         {
@@ -105,6 +92,7 @@ public class FightManager : MonoBehaviour
 
             PlayerGameObject.text = Player.healPoints + " Pv ";
             state = true;
+            Tour();
         }
         
     }
@@ -128,6 +116,7 @@ public class FightManager : MonoBehaviour
 
             otherPlayerGameObject.text = otherPlayer.healPoints + " Pv ";
             state = false;
+            Tour();
         }
         else
         {
@@ -145,6 +134,7 @@ public class FightManager : MonoBehaviour
             }
             PlayerGameObject.text = Player.healPoints + " Pv ";
             state = true;
+            Tour();
         }
         
     }
@@ -167,6 +157,7 @@ public class FightManager : MonoBehaviour
             }
             otherPlayerGameObject.text = otherPlayer.healPoints + " Pv ";
             state = false;
+            Tour();
         }
         else
         {
@@ -185,7 +176,9 @@ public class FightManager : MonoBehaviour
             
             PlayerGameObject.text = Player.healPoints + " Pv ";
             state = true;
+            Tour();
             
         }
     }
+    
 }
